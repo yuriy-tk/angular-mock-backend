@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "projects": {
+    "cows-table": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/cows-table",
+      "sourceRoot": "apps/cows-table/src",
+      "prefix": "org",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/cows-table",
+            "index": "apps/cows-table/src/index.html",
+            "main": "apps/cows-table/src/main.ts",
+            "polyfills": "apps/cows-table/src/polyfills.ts",
+            "tsConfig": "apps/cows-table/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/cows-table/src/favicon.ico",
+              "apps/cows-table/src/assets"
+            ],
+            "styles": ["apps/cows-table/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/cows-table/src/environments/environment.ts",
+                  "with": "apps/cows-table/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "cows-table:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "cows-table:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "cows-table:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/cows-table/tsconfig.app.json",
+              "apps/cows-table/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/cows-table/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/cows-table/jest.config.js",
+            "tsConfig": "apps/cows-table/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/cows-table/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "cows-table-e2e": {
+      "root": "apps/cows-table-e2e",
+      "sourceRoot": "apps/cows-table-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/cows-table-e2e/cypress.json",
+            "tsConfig": "apps/cows-table-e2e/tsconfig.e2e.json",
+            "devServerTarget": "cows-table:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "cows-table:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/cows-table-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/cows-table-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "cows-table"
+}
