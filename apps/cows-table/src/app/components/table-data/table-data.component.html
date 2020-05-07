@@ -1,0 +1,36 @@
+<div class="container">
+  <button class="button" (click)="onCreateRow()">Create row</button>
+
+  *Hint: Double lick on cell to edit the data
+  <table #table>
+    <thead>
+      <tr>
+        <th *ngFor="let headTitle of headerTitles | keys">{{ headTitle }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cow of cows; index as index">
+        <td>
+          <mat-icon class="icon" (click)="onDeleteRow(cow)">delete</mat-icon>
+        </td>
+        <td *ngFor="let prop of cow | keys" [class.id]="prop === 'id'">
+          <ng-container *ngIf="prop === 'cowId'">
+            {{ cow[prop] }}
+          </ng-container>
+          <ng-container *ngIf="prop !== 'cowId'">
+            <org-editable (update)="updateField(index, prop)">
+              <ng-template orgViewMode>{{ cow[prop] || '-' }}</ng-template>
+              <ng-template orgEditMode>
+                <input
+                  [formControl]="getControl(index, prop)"
+                  orgFocusable
+                  orgEditableOnEnter
+                />
+              </ng-template>
+            </org-editable>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

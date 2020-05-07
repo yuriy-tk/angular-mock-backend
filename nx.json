@@ -25,6 +25,12 @@
     "cows-table-e2e": {
       "tags": [],
       "implicitDependencies": ["cows-table"]
+    },
+    "core": {
+      "tags": []
+    },
+    "sdk": {
+      "tags": []
     }
   }
 }
