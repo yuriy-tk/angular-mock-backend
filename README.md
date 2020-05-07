@@ -1,4 +1,8 @@
-# Org
+## How to run:
+ - run `npm i`
+ - run `npm run start`
+
+# Angular mock backend with interceptor
 
 This project was generated using [Nx](https://nx.dev).
 
